@@ -1,6 +1,21 @@
 <!doctype html>
 <html lang="en">
   <head>
+      <style>
+          .center {
+              text-align: center;
+              border-radius:5px;
+              height:110px;
+          }
+          .pad2 {
+              padding-bottom: 20px;
+              padding-left:1px
+              padding-right: 1px;
+          }
+          .bg-primaryx {
+              background-color : #ABCDFF;
+          }
+      </style>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -11,7 +26,7 @@
     <title>PPC Cileungsi</title>
   </head>
   <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-primary">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <a class="navbar-brand" href="/user">Program Pelanggan Cabang Cileungsi</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -25,12 +40,20 @@
       <li class="nav-item">
         <a class="nav-link" href="/user/pengaduan">Pengaduan</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/user/pemasangan">Pemasangan Baru</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/user/pengguna">Pengguna</a>
+      </li>
+      
       
 
     </ul>
     <div class="form-inline my-2 my-lg-0">
       
-      <button class="btn btn-danger my-2 my-sm-0" type="submit">Logout</button>
+      <a href="/user/logout"><button class="btn btn-danger my-2 my-sm-0" type="submit">Logout</button></a>
     </div>
   </div>
-</nav
+</nav>
+<br>
