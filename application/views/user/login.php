@@ -36,6 +36,7 @@
   <body>
     <form class="form-signin" method="POST" action="/user/handleLogin">
   <div class="text-center mb-4">
+      <img src="/logo.png" width="200px">
     <h1 class="h3 mb-3 font-weight-normal">Program Pelanggan Cabang Cileungsi </h1>
     <p>Silahkan Masuk untuk melanjutkan</p>
   </div>
@@ -51,7 +52,7 @@
   </div>
 
   <button class="btn btn-lg btn-primary btn-block" type="submit">Masuk</button>
-  <p class="mt-5 mb-3 text-muted text-center">© 2020 cileungsi project</p>
+  <p class="mt-5 mb-3 text-muted text-center">© 2020 PDAM KABUPATEN BOGOR</p>
 </form>
 
 
