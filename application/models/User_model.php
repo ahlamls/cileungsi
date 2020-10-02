@@ -51,6 +51,9 @@ public function getUserInfo($id,$type) {
              }
        } else {
          return "tidak diketahui";
+        header("Location: /user/logout/");
+        die("sukses");
+         
        }
     }
     
@@ -320,7 +323,114 @@ public function getSambunganInfo($id,$type) {
          return "tidak diketahui";
        }
     }
+    
+    public function sambunganprintall(){
+   
+    
 
+        $asede = "";
+        $query = $this->db->query("SELECT * FROM `sambungan` ORDER BY `sambungan`.`id` DESC");
+
+        foreach ($query->result() as $row)
+        {
+
+        $aidi = $row->id;
+        $tanggal = $row->tanggal;
+        $nama=$row->nama;
+        $jenis=$row->peruntukan;
+        $alamat = $row->alamat;
+$asede .= "
+
+<h4><b>Nomor Sambungan Baru #$aidi</b></h4>
+<table style='width: 100%; border: solid 1px #FFFFFF;'>
+    <tr>
+            <td style='width: 50%; border: solid 1px #000000;'>
+
+            
+<p>
+<b>Tanggal :</b> $tanggal <br>
+<b>Nama :</b> $nama<br>
+<b>Peruntukan:</b> $jenis<br>
+</p>
+</td>
+    
+            <td style='width: 50%; border: solid 1px #000000;'>
+      <p> <b>Alamat : </b><br>
+      $alamat
+      </p></td>
+      </tr>
+    </table>
+<hr>
+";
+        
+        
+        
+    }
+    return $asede;
+    }
+    
+    
+public function pengaduanprintall(){
+   
+    
+
+        $asede = "";
+        $query = $this->db->query("SELECT * FROM `pengaduan` ORDER BY `pengaduan`.`id` DESC");
+
+        foreach ($query->result() as $row)
+        {
+
+        $aidi = $row->id;
+        $tanggal = $row->tanggal;
+        $nama=$row->nama;
+        $jenis=$row->jenis;
+        $alamat = $row->alamat;
+        $nosa = $row->nosa;
+          
+          if ($jenis == 1) {
+              $jenis = "Air Mati";
+          } else if ($jenis == 2) {
+              $jenis = "Air Keruh";
+          } else if ($jenis == 3) {
+              $jenis = "Bocor";
+          } else if ($jenis == 4) {
+              $jenis = "Pemakaian Besar";
+          } else if ($jenis == 5) {
+              $jenis = "Lainnya";
+          }
+          
+        
+        
+$asede .= "
+
+<h4><b>Nomor Sambungan Baru #$aidi</b></h4>
+<table style='width: 100%; border: solid 1px #FFFFFF;'>
+    <tr>
+            <td style='width: 50%; border: solid 1px #000000;'>
+
+            
+<p>
+<b>Tanggal :</b> $tanggal <br>
+<b>Nama :</b> $nama<br>
+<b>Nomor SA :</b> $nosa<br>
+<b>Jenis:</b> $jenis<br>
+</p>
+</td>
+    
+            <td style='width: 50%; border: solid 1px #000000;'>
+      <p> <b>Alamat : </b><br>
+      $alamat
+      </p></td>
+      </tr>
+    </table>
+<hr>
+";
+        
+        
+        
+    }
+    return $asede;
+    }
     
 public function penggunaList() {
         /*

@@ -21,5 +21,10 @@
     
   </tbody>
 </table>
+
 </div>
+<hr>
+<a href="/user/sambunganprintall/"><button class="btn btn-info">PDF Semua Sambungan</button></a>
+
+  
 </div>

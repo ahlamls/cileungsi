@@ -436,6 +436,62 @@ $date = date("H-i-s-d-m-Y");
 }
 
 
+public function SambunganPrintAll(){
+
+if (isset($_SESSION['aid'])){
+     $aaidi = $_SESSION['aid'];
+    } else {
+      header("Location: /user/login/?msg=Silahkan Login Untuk Melanjutkan");
+      die("Belum Login");
+    }
+    
+    $dr = $_SERVER['DOCUMENT_ROOT'];
+
+
+
+$content= header . $this->user_model->sambunganprintall();
+ob_start();
+
+	$html2pdf = new Html2Pdf('P','A4','fr', true, 'UTF-8', array(15, 15, 15, 15), false); 
+	$html2pdf->writeHTML($content);
+ob_end_clean();
+ob_end_flush();
+$date = date("H-i-s-d-m-Y");
+	$html2pdf->output("cileungsi-SEMUA-sambungan" . " " . $date . ".pdf","I");
+	$html2pdf->clean();
+	ob_end_clean();
+   // $this->load->view('user/sambungan-print');
+    
+}
+public function PengaduanPrintAll(){
+
+if (isset($_SESSION['aid'])){
+     $aaidi = $_SESSION['aid'];
+    } else {
+      header("Location: /user/login/?msg=Silahkan Login Untuk Melanjutkan");
+      die("Belum Login");
+    }
+    
+    $dr = $_SERVER['DOCUMENT_ROOT'];
+
+
+
+$content= header . $this->user_model->pengaduanprintall();
+ob_start();
+
+	$html2pdf = new Html2Pdf('P','A4','fr', true, 'UTF-8', array(15, 15, 15, 15), false); 
+	$html2pdf->writeHTML($content);
+ob_end_clean();
+ob_end_flush();
+$date = date("H-i-s-d-m-Y");
+	$html2pdf->output("cileungsi-SEMUA-pengaduan" . " " . $date . ".pdf","I");
+	$html2pdf->clean();
+	ob_end_clean();
+   // $this->load->view('user/sambungan-print');
+    
+}
+
+  
 public function Pengguna() {
   if (isset($_SESSION['aid'])){
      $aaidi = $_SESSION['aid'];

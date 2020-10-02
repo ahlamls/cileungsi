@@ -22,4 +22,6 @@
   </tbody>
 </table>
 </div>
+<hr>
+<a href="/user/pengaduanprintall/"><button class="btn btn-info">PDF Semua Pengaduan</button></a>
 </div>
