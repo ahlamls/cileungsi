@@ -27,7 +27,7 @@
   </head>
   <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  <a class="navbar-brand" href="/user">Program Pelanggan Cabang Cileungsi</a>
+  <a class="navbar-brand" href="/user"><b>PPC</b> Cileungsi</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -41,7 +41,7 @@
         <a class="nav-link" href="/user/pengaduan">Pengaduan</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/user/pemasangan">Pemasangan Baru</a>
+        <a class="nav-link" href="/user/sambungan">Sambungan Baru</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/user/pengguna">Pengguna</a>

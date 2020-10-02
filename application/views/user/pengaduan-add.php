@@ -31,7 +31,7 @@
 
  <div class="form-group">
   <label for="nosa">Nomor SA</label>
-  <input type="number" maxlength="20" class="form-control" name="nosa" required="" id="nosa" >
+  <input type="number" maxlength="8" minlength="8" class="form-control" name="nosa" required="" id="nosa" >
 </div>
 
 
