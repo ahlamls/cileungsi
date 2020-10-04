@@ -72,6 +72,7 @@ public function pengaduanList() {
           $no = $row->nama;
           $alamat = $row->alamat;
           $nosa = $row->nosa;
+          $diameter = $row->diameter;
           
           if ($jenis == 1) {
               $jenis = "Air Mati";
@@ -83,9 +84,9 @@ public function pengaduanList() {
               $jenis = "Pemakaian Besar";
           } else if ($jenis == 5) {
               $jenis = "Lainnya";
-          }
-          
-
+          } else if ($jenis == 6){
+              $jenis = "Pipa Bocor (" . $diameter . '")';
+}
 
               $asede .= "    <tr>
       <th scope='row'>$aidi</th>
@@ -135,9 +136,10 @@ public function handlePengaduanAdd(){
         $nama = $this->db->escape_str($_POST['nama']);
         $alamat = $this->db->escape_str($_POST['alamat']);
         $nosa = $this->db->escape_str($_POST['nosa']);
+     $diameter = $this->db->escape_str($_POST['diameter']);
 
         
-        if ( ! $this->db->simple_query("INSERT INTO `pengaduan` (`id`, `waktu`, `tanggal`, `jenis`, `nama`, `alamat`, `nosa`) VALUES (NULL, current_timestamp(), '$tanggal', '$jenis', '$nama', '$alamat', '$nosa')"))
+        if ( ! $this->db->simple_query("INSERT INTO `pengaduan` (`id`, `waktu`, `tanggal`, `jenis`, `nama`, `alamat`, `nosa`,`diameter`) VALUES (NULL, current_timestamp(), '$tanggal', '$jenis', '$nama', '$alamat', '$nosa','$diameter')"))
           {
         die("Terjadi kesalahan " .  $this->db->error()['message']); // Has keys 'code' and 'message'
         } else {
@@ -166,9 +168,9 @@ public function handlePengaduanDelete($id) {
         $nama = $this->db->escape_str($_POST['nama']);
         $alamat = $this->db->escape_str($_POST['alamat']);
         $nosa = $this->db->escape_str($_POST['nosa']);
-
+     $diameter = $this->db->escape_str($_POST['diameter']);
        
-      if ( ! $this->db->simple_query("UPDATE `pengaduan` SET `jenis` = '$jenis', `nama` = '$nama', `alamat` = '$alamat', `tanggal` = '$tanggal' , `nosa` = '$nosa' WHERE `pengaduan`.`id` = '$id'"))
+      if ( ! $this->db->simple_query("UPDATE `pengaduan` SET `jenis` = '$jenis', `nama` = '$nama', `alamat` = '$alamat', `tanggal` = '$tanggal' , `nosa` = '$nosa' , `diameter` = '$diameter' WHERE `pengaduan`.`id` = '$id'"))
         {
       die("Terjadi kesalahan " .  $this->db->error()['message']); // Has keys 'code' and 'message'
       } else {
@@ -197,6 +199,8 @@ public function getPengaduanInfo($id,$type) {
                  return $row->jenis;
        } else if ($type == 6) {
            return $row->alamat;
+       } else if ($type == 7) {
+           return $row->diameter;
        
              }else {
                return "Invalid Type";
@@ -386,7 +390,8 @@ public function pengaduanprintall(){
         $jenis=$row->jenis;
         $alamat = $row->alamat;
         $nosa = $row->nosa;
-          
+         $diameter = $row->diameter;
+         $diameterx = "";
           if ($jenis == 1) {
               $jenis = "Air Mati";
           } else if ($jenis == 2) {
@@ -397,13 +402,16 @@ public function pengaduanprintall(){
               $jenis = "Pemakaian Besar";
           } else if ($jenis == 5) {
               $jenis = "Lainnya";
+          } else if ($jenis ==6) {
+              $jenis = "Pipa Bocor";
+              $diameterx =" <b>Diameter Pipa (inch): </b> $diameter <br>";
           }
           
         
         
 $asede .= "
 
-<h4><b>Nomor Sambungan Baru #$aidi</b></h4>
+<h4><b>Nomor Pengaduan #$aidi</b></h4>
 <table style='width: 100%; border: solid 1px #FFFFFF;'>
     <tr>
             <td style='width: 50%; border: solid 1px #000000;'>
@@ -414,6 +422,7 @@ $asede .= "
 <b>Nama :</b> $nama<br>
 <b>Nomor SA :</b> $nosa<br>
 <b>Jenis:</b> $jenis<br>
+$diameterx
 </p>
 </td>
     

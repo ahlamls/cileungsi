@@ -168,6 +168,7 @@ public function pengaduanEdit($id) {
     $data['nosa'] =$this->user_model->getPengaduanInfo($id,4);
     $data['alamat'] =$this->user_model->getPengaduanInfo($id,6);
     $data['nama'] =$this->user_model->getPengaduanInfo($id,3);
+    $data['diameter'] =$this->user_model->getPengaduanInfo($id,7);
 $this->load->view('user/modular/header',$data);
     $this->load->view('user/pengaduan-edit',$data);
 
@@ -230,18 +231,22 @@ if (isset($_SESSION['aid'])){
     $nama = $this->user_model->getPengaduanInfo($id,3);
     $nosa = $this->user_model->getPengaduanInfo($id,4);
     $jenis = $this->user_model->getPengaduanInfo($id,5);
-            if ($jenis == 1) {
+$diameter = $this->user_model->getPengaduanInfo($id,7);
+         $diameterx = "";
+          if ($jenis == 1) {
               $jenis = "Air Mati";
           } else if ($jenis == 2) {
               $jenis = "Air Keruh";
           } else if ($jenis == 3) {
               $jenis = "Bocor";
           } else if ($jenis == 4) {
-              $jenis == "Pemakaian Besar";
+              $jenis = "Pemakaian Besar";
           } else if ($jenis == 5) {
-              $jenis == "Lainnya";
+              $jenis = "Lainnya";
+          } else if ($jenis ==6) {
+              $jenis = "Pipa Bocor";
+              $diameterx =" <b>Diameter Pipa (inch): </b> $diameter <br>";
           }
-
     $alamat = $this->user_model->getPengaduanInfo($id,6);
 
 
@@ -259,6 +264,7 @@ $content= header . "
 <b>Nama :</b> $nama<br>
 <b>No SA:</b> $nosa<br>
 <b>Jenis Pengaduan:</b> $jenis<br>
+$diameterx
 </p>
 </td>
     
