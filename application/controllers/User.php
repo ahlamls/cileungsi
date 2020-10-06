@@ -114,6 +114,8 @@ $data['d'] = $this->user_model->homeWidget(4);
 $data['e'] = $this->user_model->homeWidget(5);
 $data['f'] = $this->user_model->homeWidget(6);
 $data['g'] = $this->user_model->homeWidget(7);
+$data['h'] = $this->user_model->homeWidget(8);
+$data['i'] = $this->user_model->homeWidget(9);
     
     $data['nama'] = $this->user_model->getUserInfo($aaidi,3);
 
@@ -129,9 +131,16 @@ public function Pengaduan() {
      $aaidi = $_SESSION['aid'];
     } else {
       header("Location: /user/login/?msg=Silahkan Login Untuk Melanjutkan");
-      die("Belum Login");
+    die("Belum Login");
     }
-    $data['content'] = $this->user_model->pengaduanList();
+    
+    $t = $v1 = $v2 = $j = "";
+    $t = isset($_GET['t']) ? $_GET['t'] : 0;
+    $v1 = isset($_GET['v1']) ? $_GET['v1'] : 0;
+    $v2 = isset($_GET['v2']) ? $_GET['v2'] : 0;
+    $j = isset($_GET['j']) ? $_GET['j'] : 0;
+    
+    $data['content'] = $this->user_model->pengaduanList($t,$v1,$v2,$j);
 
     $this->load->view('user/modular/header',$data);
     $this->load->view('user/pengaduan',$data);
@@ -299,7 +308,13 @@ public function Sambungan() {
       header("Location: /user/login/?msg=Silahkan Login Untuk Melanjutkan");
       die("Belum Login");
     }
-    $data['content'] = $this->user_model->sambunganList();
+        $t = $v1 = $v2 = $j = "";
+    $t = isset($_GET['t']) ? $_GET['t'] : 0;
+    $v1 = isset($_GET['v1']) ? $_GET['v1'] : 0;
+    $v2 = isset($_GET['v2']) ? $_GET['v2'] : 0;
+    $j = isset($_GET['j']) ? $_GET['j'] : 0;
+    
+    $data['content'] = $this->user_model->sambunganList($t,$v1,$v2,$j);
 
     $this->load->view('user/modular/header',$data);
     $this->load->view('user/sambungan',$data);
@@ -585,6 +600,194 @@ if (isset($_SESSION['aid'])){
     $this->user_model->handlePenggunaEdit($id);
     
 
+}
+
+public function SambunganEx() {
+  if (isset($_SESSION['aid'])){
+     $aaidi = $_SESSION['aid'];
+    } else {
+      header("Location: /user/login/?msg=Silahkan Login Untuk Melanjutkan");
+      die("Belum Login");
+    }
+        $t = $v1 = $v2 = $j = "";
+    $t = isset($_GET['t']) ? $_GET['t'] : 0;
+    $v1 = isset($_GET['v1']) ? $_GET['v1'] : 0;
+    $v2 = isset($_GET['v2']) ? $_GET['v2'] : 0;
+    $j = isset($_GET['j']) ? $_GET['j'] : 0;
+    
+    $data['content'] = $this->user_model->sambunganexList($t,$v1,$v2,$j);
+
+    $this->load->view('user/modular/header',$data);
+    $this->load->view('user/sambunganex',$data);
+
+      $this->load->view('user/modular/footer',$data);
+}
+
+public function sambunganexAdd() {
+  if (isset($_SESSION['aid'])){
+     $aaidi = $_SESSION['aid'];
+    } else {
+      header("Location: /user/login/?msg=Silahkan Login Untuk Melanjutkan");
+      die("Belum Login");
+    }
+    $data['content'] = "";
+
+    $this->load->view('user/modular/header',$data);
+    $this->load->view('user/sambunganex-add',$data);
+
+      $this->load->view('user/modular/footer',$data);
+}
+
+public function sambunganexEdit($id) {
+    if (isset($_SESSION['aid'])){
+     $aaidi = $_SESSION['aid'];
+    } else {
+      header("Location: /user/login/?msg=Silahkan Login Untuk Melanjutkan");
+      die("Belum Login");
+    }
+    
+    $data['id'] = $this->user_model->getSambunganExInfo($id,1);
+    $data['peruntukan'] = $this->user_model->getSambunganExInfo($id,4);
+    $data['persen'] = $this->user_model->getSambunganExInfo($id,5);
+    $data['tanggal'] = $this->user_model->getSambunganExInfo($id,2);
+
+    $data['alamat'] =$this->user_model->getSambunganExInfo($id,6);
+    $data['nama'] =$this->user_model->getSambunganExInfo($id,3);
+$this->load->view('user/modular/header',$data);
+    $this->load->view('user/sambunganex-edit',$data);
+
+      $this->load->view('user/modular/footer',$data);
+}
+
+
+public function handleSambunganExAdd(){
+    
+if (isset($_SESSION['aid'])){
+     $aaidi = $_SESSION['aid'];
+    } else {
+      header("Location: /user/login/?msg=Silahkan Login Untuk Melanjutkan");
+      die("Belum Login");
+    }
+
+    $this->user_model->handleSambunganExAdd();
+    
+}
+
+public function handleSambunganExDelete($id){
+
+if (isset($_SESSION['aid'])){
+     $aaidi = $_SESSION['aid'];
+    } else {
+      header("Location: /user/login/?msg=Silahkan Login Untuk Melanjutkan");
+      die("Belum Login");
+    }
+
+    $this->user_model->handleSambunganExDelete($id);
+    
+}
+
+public function handleSambunganExEdit($id){
+if (isset($_SESSION['aid'])){
+     $aaidi = $_SESSION['aid'];
+    } else {
+      header("Location: /user/login/?msg=Silahkan Login Untuk Melanjutkan");
+      die("Belum Login");
+    }
+
+    $this->user_model->handleSambunganExEdit($id);
+    
+
+}
+   
+
+public function SambunganExPrint($id){
+
+if (isset($_SESSION['aid'])){
+     $aaidi = $_SESSION['aid'];
+    } else {
+      header("Location: /user/login/?msg=Silahkan Login Untuk Melanjutkan");
+      die("Belum Login");
+    }
+    
+    $dr = $_SERVER['DOCUMENT_ROOT'];
+    
+    $aidi = $this->user_model->getSambunganExInfo($id,1);
+    $tanggal = $this->user_model->getSambunganExInfo($id,2);
+    $nama = $this->user_model->getSambunganExInfo($id,3);
+
+    $persen = $this->user_model->getSambunganExInfo($id,5);
+
+    $jenis = $this->user_model->getSambunganExInfo($id,4);
+
+
+    $alamat = $this->user_model->getSambunganExInfo($id,6);
+
+
+$content= header . "
+
+<h4><b>Nomor Sambungan Lama #$aidi</b></h4>
+<table style='width: 100%; border: solid 1px #FFFFFF;'>
+    <tr>
+            <td style='width: 50%; border: solid 1px #000000;'>
+
+            
+<p>
+<b>Tanggal :</b> $tanggal <br>
+<b>Nama :</b> $nama<br>
+<b>Peruntukan:</b> $jenis<br>
+<b>Persen </b>: $persen %<br>
+</p>
+</td>
+    
+            <td style='width: 50%; border: solid 1px #000000;'>
+      <p> <b>Alamat : </b><br>
+      $alamat
+      </p></td>
+      </tr>
+    </table>
+
+";
+ob_start();
+
+	$html2pdf = new Html2Pdf('P','A4','fr', true, 'UTF-8', array(15, 15, 15, 15), false); 
+	$html2pdf->writeHTML($content);
+ob_end_clean();
+ob_end_flush();
+$date = date("H-i-s-d-m-Y");
+	$html2pdf->output("cileungsi-sambunganex-" . $id . " " . $date . ".pdf","I");
+	$html2pdf->clean();
+	ob_end_clean();
+   // $this->load->view('user/sambunganex-print');
+    
+}
+
+
+public function SambunganExPrintAll(){
+
+if (isset($_SESSION['aid'])){
+     $aaidi = $_SESSION['aid'];
+    } else {
+      header("Location: /user/login/?msg=Silahkan Login Untuk Melanjutkan");
+      die("Belum Login");
+    }
+    
+    $dr = $_SERVER['DOCUMENT_ROOT'];
+
+
+
+$content= header . $this->user_model->sambunganexprintall();
+ob_start();
+
+	$html2pdf = new Html2Pdf('P','A4','fr', true, 'UTF-8', array(15, 15, 15, 15), false); 
+	$html2pdf->writeHTML($content);
+ob_end_clean();
+ob_end_flush();
+$date = date("H-i-s-d-m-Y");
+	$html2pdf->output("cileungsi-SEMUA-sambunganlama" . " " . $date . ".pdf","I");
+	$html2pdf->clean();
+	ob_end_clean();
+   // $this->load->view('user/sambunganex-print');
+    
 }
 
 

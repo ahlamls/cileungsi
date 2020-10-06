@@ -74,7 +74,10 @@ if ($jenis == 1) {
 </form>
 
 <script>
-window.onload = function(){handleDiameter()};
+window.onload = function(){handleDiameter();
+    
+    $("#diameter").val("<?= $diameter ?>").change();
+};
     
     function handleDiameter() {
     //    alert(document.getElementById("jenis").value);

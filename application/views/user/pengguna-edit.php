@@ -23,7 +23,7 @@
 
 
 <hr>
-<button class="btn btn-success" type="submit">Tambah</button>
+<button class="btn btn-success" type="submit">Ubah</button>
 </form>
 
 </div>

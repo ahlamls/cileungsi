@@ -30,6 +30,13 @@
             Pengaduan Pemakaian Besar
             </div>
         </div>
+              <div class="col-6 col-md-3 pad2">
+            <div class="center bg-primaryx ">
+            <h1><b>            <?= $i ?></b></h1>
+            Pengaduan Pipa Bocor
+            </div>
+        </div>
+      
       
               <div class="col-6 col-md-3 pad2">
             <div class="center bg-secondary text-white">
@@ -49,6 +56,14 @@
             <div class="center bg-success text-white">
             <h1><b>            <?= $f ?></b></h1>
             Sambungan Baru
+            </div>
+        </div>
+        
+            
+            <div class="col-6 col-md-3 pad2">
+            <div class="center bg-success text-white">
+            <h1><b>            <?= $h ?></b></h1>
+            Sambungan Lama
             </div>
         </div>
      

@@ -1,7 +1,7 @@
 <div class="container">
-    <h1>Pengaduan</h1>
-    <a href="/user/pengaduanadd"><button class="btn btn-primary">Tambah Pengaduan</button></a>
-    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modalfilter">
+    <h1>Sambungan Lama</h1>
+    <a href="/user/sambunganexadd"><button class="btn btn-primary">Tambah Sambungan Lama</button></a>
+            <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modalfilter">
   Filter
 </button>
     <hr>
@@ -10,11 +10,12 @@
   <thead>
     <tr>
       <th scope="col">#</th>
-      <th>Jenis</th>
+      
       <th scope="col">Tanggal</th>
       <th scope="col">Nama</th>
       <th scope="col">Alamat</th>
-      <th scope="col">No SA</th>
+            <th scope="col">Persen</th>
+      <th scope="col">Peruntukan</th>
       <th scope="col">Aksi</th>
       
     </tr>
@@ -24,11 +25,13 @@
     
   </tbody>
 </table>
+
 </div>
 <hr>
-<a href="/user/pengaduanprintall/"><button class="btn btn-info">PDF Semua Pengaduan</button></a>
-</div>
+<a href="/user/sambunganexprintall/"><button class="btn btn-info">PDF Semua Sambungan Lama</button></a>
 
+  
+</div>
 
     
 <script>
@@ -36,12 +39,6 @@ function hapus(id,nama,hapusurl) {
     document.getElementById("hapusname").innerHTML = nama;
     document.getElementById("hapusurl").href = hapusurl;
 $('#modal').modal('show');
-}
-
-window.onload = function() {
-
-    $("#bulan").val("<?= date("m") ?>").change();
-    $("#tanggal").val("<?= date("Y-m-d") ?>");
 }
     
 </script>
@@ -66,6 +63,7 @@ window.onload = function() {
     </div>
   </div>
 </div>
+
 <!-- pilter -->
 <?php
 
@@ -78,6 +76,13 @@ for ($x = $thn; $x >= 1970; $x--) {
 
 ?>
 <script>
+window.onload = function() {
+
+    $("#bulan").val("<?= date("m") ?>").change();
+    $("#tanggal").val("<?= date("Y-m-d") ?>");
+}
+
+
 var type = 1;
 function ct(x){
     type = x;
@@ -180,19 +185,19 @@ window.location.href = "?t=" + type + "&v1=" + v1 + "&v2=" + v2 + "&j=" + j;
       
   </div>
 </div>
-            
 <div class="form-group">
-    <label for="jenis">Jenis Pengaduan</label>
+    <label for="jenis">Peruntukan</label>
     <select class="form-control" id="jenis" required="" name="jenis">
-              <option value="0">Semua</option>
-      <option value="1">Air Mati</option>
-      <option value="2">Air Keruh</option>
-      <option value="3">Bocor</option>
-      <option value="4">Pemakaian Besar</option>
-                  <option value="6">Pipa Bocor</option>
-      <option value="5">Lainnya</option>
+      <option value="Rumah Tinggal">Rumah Tinggal</option>
+      <option value="Rumah Ibadah">Rumah Ibadah</option>
+      <option value="Sosial">Sosial</option>
+      <option value="Tempat Usaha">Tempat Usaha</option>
+      <option value="Sekolah">Sekolah</option>
+      <option value="Lainnya">Lainnya</option>
     </select>
   </div>
+
+
 
         
         
@@ -203,4 +208,4 @@ window.location.href = "?t=" + type + "&v1=" + v1 + "&v2=" + v2 + "&j=" + j;
       </div>
     </div>
   </div>
-</div
+</div>

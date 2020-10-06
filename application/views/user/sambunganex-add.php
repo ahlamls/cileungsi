@@ -1,7 +1,7 @@
 <div class="container">
-<h1>Tambah Sambungan Baru</h1>
+<h1>Tambah Sambungan Lama</h1>
 <hr>
-<form action="/user/handleSambunganAdd" method="POST">
+<form action="/user/handleSambunganexAdd" method="POST">
     
   
   <div class="form-group">
@@ -18,6 +18,16 @@
   <label for="alamat">Alamat</label>
   <input type="text" class="form-control" name="alamat" required="" id="alamat" >
 </div>
+
+<div class="form-group">
+    <label for="persen">Persen</label>
+    <select class="form-control" id="persen" required="" name="persen">
+      <option value="25">25%</option>
+      <option value="50">50%</option>
+      <option value="100">100%</option>
+
+    </select>
+  </div>
 
 
 <div class="form-group">

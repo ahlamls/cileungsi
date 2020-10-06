@@ -58,11 +58,36 @@ public function getUserInfo($id,$type) {
     }
     
     
-public function pengaduanList() {
+public function pengaduanList($t,$v1,$v2,$j) {
         /*
         */
+        $t = $this->db->escape_str($t);
+        $v1 = $this->db->escape_str($v1);
+        $v2 = $this->db->escape_str($v2);
+        if ((int)$v2 < 10){
+            $v2 = "0" . $v2;
+        }
+        $j = $this->db->escape_str($j);
+        $eq = "";
+        if ($t != 0) {
+            $eq .= "WHERE ";
+        }
+        
+        if ($t == 1) {
+            $eq .= "tanggal = '$v1'";
+        } else if ($t == 2) {
+            $eq .= "tanggal LIKE '$v1-$v2-%'";
+        } else if ($t == 3) {
+            $eq .= "tanggal LIKE '$v1-%'";
+        }
+        
+        if ($j != 0) {
+            $eq .= " AND jenis = '$j'";
+        }
+        
+        
         $asede = "";
-        $query = $this->db->query("SELECT * FROM `pengaduan` ORDER BY `pengaduan`.`id` DESC");
+        $query = $this->db->query("SELECT * FROM `pengaduan` $eq ORDER BY `pengaduan`.`id` ASC");
 
         foreach ($query->result() as $row)
         {
@@ -96,9 +121,10 @@ public function pengaduanList() {
       <td>$alamat</td>
       <td>$nosa</td>
       <td>
-      <a href='/user/handlepengaduandelete/$aidi'><button class='btn btn-danger'>Hapus</button></a>
+      <button class='btn btn-danger' onclick=" . '"' . "hapus($aidi,'$no','/user/handlepengaduandelete/$aidi')" . '"' .">Hapus</button>
       <a href='/user/pengaduanedit/$aidi'><button class='btn btn-warning text-black'>Edit</button></a>
-      <a href='/user/pengaduanprint/$aidi' ><button class='btn btn-primary'>PDF</button></a></td>
+      <a href='/user/pengaduanprint/$aidi' ><button class='btn btn-primary'>PDF</button></a>
+      </td>
     </tr>
 ";
         }
@@ -121,7 +147,11 @@ $sql = "SELECT id FROM `pengaduan` WHERE `jenis` = 5";
 $sql = "SELECT id FROM `sambungan`";
           } else if ($id == 7) {
 $sql = "SELECT id FROM `user`";
-          } else {
+          } else if ($id == 8) {
+              $sql = "SELECT id FROM `sambunganex";
+                        } else if ($id == 9) {
+$sql = "SELECT id FROM `pengaduan` WHERE `jenis` = 6";
+              }else {
               return 69;
           }
           
@@ -212,11 +242,35 @@ public function getPengaduanInfo($id,$type) {
 
 
     
-public function sambunganList() {
+public function sambunganList($t,$v1,$v2,$j) {
         /*
         */
+                $t = $this->db->escape_str($t);
+        $v1 = $this->db->escape_str($v1);
+        $v2 = $this->db->escape_str($v2);
+        if ((int)$v2 < 10){
+            $v2 = "0" . $v2;
+        }
+        $j = $this->db->escape_str($j);
+        $eq = "";
+        if ($t != 0) {
+            $eq .= "WHERE ";
+        }
+        
+        if ($t == 1) {
+            $eq .= "tanggal = '$v1'";
+        } else if ($t == 2) {
+            $eq .= "tanggal LIKE '$v1-$v2-%'";
+        } else if ($t == 3) {
+            $eq .= "tanggal LIKE '$v1-%'";
+        }
+        
+        if ($j != 0) {
+            $eq .= " AND peruntukan = '$j'";
+        }
+        
         $asede = "";
-        $query = $this->db->query("SELECT * FROM `sambungan` ORDER BY `sambungan`.`id` DESC");
+        $query = $this->db->query("SELECT * FROM `sambungan` $eq ORDER BY `sambungan`.`id` ASC");
 
         foreach ($query->result() as $row)
         {
@@ -239,7 +293,7 @@ public function sambunganList() {
       <td>$alamat</td>
       <td>$peruntukan</td>
       <td>
-      <a href='/user/handlesambungandelete/$aidi'><button class='btn btn-danger'>Hapus</button></a>
+      <button class='btn btn-danger' onclick=" . '"' . "hapus($aidi,'$no','/user/handlesambungandelete/$aidi')" . '"' .">Hapus</button>
       <a href='/user/sambunganedit/$aidi'><button class='btn btn-warning text-black'>Edit</button></a>
       <a href='/user/sambunganprint/$aidi' ><button class='btn btn-primary'>PDF</button></a></td>
     </tr>
@@ -333,7 +387,7 @@ public function getSambunganInfo($id,$type) {
     
 
         $asede = "";
-        $query = $this->db->query("SELECT * FROM `sambungan` ORDER BY `sambungan`.`id` DESC");
+        $query = $this->db->query("SELECT * FROM `sambungan` ORDER BY `sambungan`.`id` ASC");
 
         foreach ($query->result() as $row)
         {
@@ -379,7 +433,7 @@ public function pengaduanprintall(){
     
 
         $asede = "";
-        $query = $this->db->query("SELECT * FROM `pengaduan` ORDER BY `pengaduan`.`id` DESC");
+        $query = $this->db->query("SELECT * FROM `pengaduan` ORDER BY `pengaduan`.`id` ASC");
 
         foreach ($query->result() as $row)
         {
@@ -465,7 +519,7 @@ public function penggunaList() {
       <td>$nama</td>
 
       <td>
-      <a href='/user/handlepenggunadelete/$aidi'><button class='btn btn-danger'>Hapus</button></a>
+      <button class='btn btn-danger' onclick=" . '"' . "hapus($aidi,'$nama','/user/handlepenggunadelete/$aidi')" . '"' .">Hapus</button>
       <a href='/user/penggunaedit/$aidi'><button class='btn btn-warning text-black'>Edit</button></a>
       </td>
     </tr>
@@ -498,6 +552,11 @@ public function handlePenggunaAdd(){
 
 public function handlePenggunaDelete($id) {
         $id = $this->db->escape_str($id);
+       $query = $this->db->query("SELECT * FROM `user` ");
+        if ($query->num_rows() == 1) {
+            die("[cileungsi] Error : Harus menyisakan minimal 1 user");
+        }
+
 
         //
         if ( ! $this->db->simple_query("DELETE FROM `user` WHERE `id` = '$id'"))
@@ -557,4 +616,199 @@ public function getPenggunaInfo($id,$type) {
     }
 
   
+    
+public function sambunganexList($t,$v1,$v2,$j) {
+        /*
+        */
+        
+                        $t = $this->db->escape_str($t);
+        $v1 = $this->db->escape_str($v1);
+        $v2 = $this->db->escape_str($v2);
+        if ((int)$v2 < 10){
+            $v2 = "0" . $v2;
+        }
+        $j = $this->db->escape_str($j);
+        $eq = "";
+        if ($t != 0) {
+            $eq .= "WHERE ";
+        }
+        
+        if ($t == 1) {
+            $eq .= "tanggal = '$v1'";
+        } else if ($t == 2) {
+            $eq .= "tanggal LIKE '$v1-$v2-%'";
+        } else if ($t == 3) {
+            $eq .= "tanggal LIKE '$v1-%'";
+        }
+        
+        if ($j != 0) {
+            $eq .= " AND peruntukan = '$j'";
+        }
+        
+        $asede = "";
+        $query = $this->db->query("SELECT * FROM `sambunganex` $eq ORDER BY `sambunganex`.`id` ASC");
+
+        foreach ($query->result() as $row)
+        {
+          $aidi = $row->id;
+          $peruntukan = $row->peruntukan;
+          $tanggal = $row->tanggal;
+          $no = $row->nama;
+          $alamat = $row->alamat;
+          $persen = $row->persen;
+
+          
+
+          
+
+
+              $asede .= "    <tr>
+      <th scope='row'>$aidi</th>
+     
+      <td>$tanggal</td>
+      <td>$no</td>
+      <td>$alamat</td>
+      <td>$persen%</td>
+      <td>$peruntukan</td>
+      <td>
+      <button class='btn btn-danger' onclick=" . '"' . "hapus($aidi,'$no','/user/handlesambunganexdelete/$aidi')" . '"' .">Hapus</button>
+      <a href='/user/sambunganexedit/$aidi'><button class='btn btn-warning text-black'>Edit</button></a>
+      <a href='/user/sambunganexprint/$aidi' ><button class='btn btn-primary'>PDF</button></a></td>
+    </tr>
+";
+        }
+
+        return $asede;
+      }
+      
+         
+
+public function handleSambunganExAdd(){
+    $tanggal = $this->db->escape_str($_POST['tanggal']);
+        $peruntukan = $this->db->escape_str($_POST['jenis']);
+        $nama = $this->db->escape_str($_POST['nama']);
+        $alamat = $this->db->escape_str($_POST['alamat']);
+                $persen = $this->db->escape_str($_POST['persen']);
+        
+
+
+        
+        if ( ! $this->db->simple_query("INSERT INTO `sambunganex` (`id`, `waktu`, `tanggal`, `nama`, `alamat`, `peruntukan` , `persen`) VALUES (NULL, current_timestamp(), '$tanggal', '$nama', '$alamat', '$peruntukan' ,'$persen');"))
+          {
+        die("Terjadi kesalahan " .  $this->db->error()['message']); // Has keys 'code' and 'message'
+        } else {
+        header("Location: /user/sambunganex/");
+        die("sukses");
+        }
+}
+
+public function handleSambunganExDelete($id) {
+        $id = $this->db->escape_str($id);
+
+        //
+        if ( ! $this->db->simple_query("DELETE FROM `sambunganex` WHERE `id` = '$id'"))
+          {
+        die("Terjadi kesalahan " .  $this->db->error()['message']); // Has keys 'code' and 'message'
+        } else {
+        header("Location: /user/sambunganex/");
+        die("sukses");
+        }
+      }
+      
+      public function handleSambunganExEdit($id){
+        $id = $this->db->escape_str($id);
+ $tanggal = $this->db->escape_str($_POST['tanggal']);
+        $jenis = $this->db->escape_str($_POST['jenis']);
+        $nama = $this->db->escape_str($_POST['nama']);
+        $alamat = $this->db->escape_str($_POST['alamat']);
+                       $persen = $this->db->escape_str($_POST['persen']);
+
+       
+      if ( ! $this->db->simple_query("UPDATE `sambunganex` SET `peruntukan` = '$jenis', `nama` = '$nama', `alamat` = '$alamat', `tanggal` = '$tanggal' , `persen` = '$persen' WHERE `sambunganex`.`id` = '$id'"))
+        {
+      die("Terjadi kesalahan " .  $this->db->error()['message']); // Has keys 'code' and 'message'
+      } else {
+      header("Location: /user/sambunganex");
+      die("sukses");
+      }
+      }
+
+public function getSambunganExInfo($id,$type) {
+      $id = $this->db->escape_str($id);
+      $query = $this->db->query("SELECT * FROM `sambunganex` WHERE `id` = '$id'");
+
+       $row = $query->row();
+
+       if (isset($row))
+       {
+             if ($type == 1) {
+               return $row->id;
+             } else if ($type == 2) {
+               return $row->tanggal;
+             } else if ($type == 3) {
+               return $row->nama;
+             } else if ($type == 4) {
+               return $row->peruntukan;
+             } else if ($type == 5){
+                 return $row->persen;
+       } else if ($type == 6) {
+           return $row->alamat;
+       
+             }else {
+               return "Invalid Type";
+             }
+       } else {
+         return "tidak diketahui";
+       }
+    }
+    
+    public function sambunganexprintall(){
+   
+    
+
+        $asede = "";
+        $query = $this->db->query("SELECT * FROM `sambunganex` ORDER BY `sambunganex`.`id` ASC");
+
+        foreach ($query->result() as $row)
+        {
+
+        $aidi = $row->id;
+        $tanggal = $row->tanggal;
+        $nama=$row->nama;
+        $jenis=$row->peruntukan;
+        $persen = $row->persen;
+        $alamat = $row->alamat;
+$asede .= "
+
+<h4><b>Nomor Sambungan Lama #$aidi</b></h4>
+<table style='width: 100%; border: solid 1px #FFFFFF;'>
+    <tr>
+            <td style='width: 50%; border: solid 1px #000000;'>
+
+            
+<p>
+<b>Tanggal :</b> $tanggal <br>
+<b>Nama :</b> $nama<br>
+<b>Peruntukan:</b> $jenis<br>
+<b>Persen : $persen % </b>
+</p>
+</td>
+    
+            <td style='width: 50%; border: solid 1px #000000;'>
+      <p> <b>Alamat : </b><br>
+      $alamat
+      </p></td>
+      </tr>
+    </table>
+<hr>
+";
+        
+        
+        
+    }
+    return $asede;
+    }
+    
+    
+
 }
